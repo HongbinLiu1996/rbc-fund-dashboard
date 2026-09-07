@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#111827" />
+  <meta name="description" content="Private-on-device dashboard for daily published mutual-fund NAV and portfolio performance." />
+  <title>My Fund Dashboard</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <link rel="stylesheet" href="src/css/styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">PERSONAL FUND TRACKER</p>
+        <h1>My Fund Dashboard</h1>
+      </div>
+      <button id="settingsButton" class="icon-button" type="button" aria-label="Portfolio settings">⚙</button>
+    </header>
+
+    <section id="statusBanner" class="status-banner hidden" aria-live="polite"></section>
+
+    <section class="hero-card" aria-labelledby="portfolioHeading">
+      <div class="hero-head">
+        <div>
+          <p id="portfolioHeading" class="label">Total portfolio</p>
+          <p id="valuationDate" class="subtle">Latest published NAV</p>
+        </div>
+        <span class="live-pill"><span></span> Daily NAV</span>
+      </div>
+      <div id="portfolioValue" class="hero-value">—</div>
+      <div class="hero-stats">
+        <div>
+          <span class="stat-label">Since purchase</span>
+          <strong id="portfolioGain">—</strong>
+        </div>
+        <div>
+          <span class="stat-label">Return</span>
+          <strong id="portfolioReturn">—</strong>
+        </div>
+        <div>
+          <span class="stat-label">Latest day</span>
+          <strong id="portfolioDaily">—</strong>
+        </div>
+      </div>
+      <button id="setupCta" class="primary-button hidden" type="button">Set up my holdings</button>
+    </section>
+
+    <section>
+      <div class="section-title-row">
+        <h2>Funds</h2>
+        <span id="latestDateMini" class="subtle"></span>
+      </div>
+      <div id="fundCards" class="fund-grid"></div>
+    </section>
+
+    <section class="chart-card">
+      <div class="section-title-row chart-heading">
+        <div>
+          <h2>Performance since purchase</h2>
+          <p id="chartSubtitle" class="subtle">Portfolio value</p>
+        </div>
+        <span id="chartLatest" class="chart-latest">—</span>
+      </div>
+
+      <div class="segmented" id="fundSelector" aria-label="Chart fund selector">
+        <button type="button" class="active" data-selection="TOTAL">Total</button>
+        <button type="button" data-selection="RBF460">RBF460</button>
+        <button type="button" data-selection="RBF266">RBF266</button>
+      </div>
+
+      <div class="segmented secondary" id="metricSelector" aria-label="Chart metric selector">
+        <button type="button" class="active" data-metric="value">Portfolio value</button>
+        <button type="button" data-metric="return">Cumulative return</button>
+      </div>
+
+      <div class="chart-wrap">
+        <svg id="performanceChart" height="280" aria-label="Fund performance chart"></svg>
+        <div id="chartEmpty" class="chart-empty hidden">Save your holdings to calculate a personal performance curve.</div>
+      </div>
+      <div class="chart-foot">
+        <span>Start: Aug 31, 2026</span>
+        <span id="chartUnit">CAD</span>
+      </div>
+    </section>
+
+    <section class="info-card">
+      <strong>How this works</strong>
+      <p>This page uses the latest publicly available daily mutual-fund NAV. Mutual funds do not have an intraday tradable price, so the numbers update after a new NAV is published.</p>
+    </section>
+
+    <footer>
+      <span>Independent personal tracker · Not affiliated with RBC</span>
+      <span id="dataUpdatedAt"></span>
+    </footer>
+  </main>
+
+  <dialog id="settingsDialog">
+    <form id="settingsForm" method="dialog" class="settings-form">
+      <div class="dialog-head">
+        <div>
+          <p class="eyebrow">ON-DEVICE SETTINGS</p>
+          <h2>Portfolio holdings</h2>
+        </div>
+        <button id="closeSettings" type="button" class="icon-button" aria-label="Close">×</button>
+      </div>
+      <p class="privacy-note">These holdings are saved only in this browser. They are not written to the public NAV-history file.</p>
+
+      <fieldset>
+        <legend>RBF460 · Select Balanced</legend>
+        <div class="field-grid">
+          <label>Units<input name="RBF460_units" inputmode="decimal" required /></label>
+          <label>Initial contribution<input name="RBF460_contribution" inputmode="decimal" required /></label>
+          <label>Purchase NAV<input name="RBF460_purchaseNav" inputmode="decimal" required /></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>RBF266 · Canadian Dividend</legend>
+        <div class="field-grid">
+          <label>Units<input name="RBF266_units" inputmode="decimal" required /></label>
+          <label>Initial contribution<input name="RBF266_contribution" inputmode="decimal" required /></label>
+          <label>Purchase NAV<input name="RBF266_purchaseNav" inputmode="decimal" required /></label>
+        </div>
+      </fieldset>
+
+      <div class="dialog-actions">
+        <button type="button" id="clearSettings" class="ghost-button">Clear local data</button>
+        <button type="submit" class="primary-button">Save on this device</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script type="module" src="src/js/app.js"></script>
+</body>
+</html>
