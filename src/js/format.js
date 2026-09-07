@@ -1,0 +1,5 @@
+export function formatCurrency(value,showSign=false){const n=Number(value);if(!Number.isFinite(n))return '—';const abs=Math.abs(n).toLocaleString('en-CA',{minimumFractionDigits:2,maximumFractionDigits:2});if(!showSign)return `${n<0?'-':''}$${abs}`;if(n>0)return `+$${abs}`;if(n<0)return `-$${abs}`;return '$0.00';}
+export function formatPercent(value,showSign=false){const n=Number(value);if(!Number.isFinite(n))return '—';const abs=Math.abs(n).toFixed(2);if(!showSign)return `${n<0?'-':''}${abs}%`;if(n>0)return `+${abs}%`;if(n<0)return `-${abs}%`;return '0.00%';}
+export function formatNav(value){const n=Number(value);return Number.isFinite(n)?`$${n.toFixed(4)}`:'—';}
+export function signClass(value){const n=Number(value);if(n>0)return 'positive';if(n<0)return 'negative';return 'neutral';}
+export function formatDate(dateString){if(!dateString)return '—';const date=new Date(`${dateString}T12:00:00Z`);if(Number.isNaN(date.getTime()))return dateString;return new Intl.DateTimeFormat('en-CA',{month:'short',day:'numeric',year:'numeric',timeZone:'UTC'}).format(date);}
