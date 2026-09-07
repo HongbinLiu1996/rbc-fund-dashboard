@@ -1,0 +1,2 @@
+import test from 'node:test';import assert from 'node:assert/strict';import{computeChartGeometry}from'../../src/js/chart.js';
+test('single point safe',()=>{const g=computeChartGeometry([{date:'x',value:10}],320,180);assert.equal(g.points.length,1);assert.ok(Number.isFinite(g.points[0].x))});test('increasing values move upward',()=>{const g=computeChartGeometry([{date:'a',value:1},{date:'b',value:2}],320,180);assert.ok(g.points[1].y<g.points[0].y)});

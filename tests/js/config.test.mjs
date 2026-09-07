@@ -1,0 +1,3 @@
+import test from 'node:test';import assert from 'node:assert/strict';import{encodeBootstrapHash,decodeBootstrapHash,normalizeHoldings}from'../../src/js/config.js';
+const h={RBF460:{code:'RBF460',name:'A',account:'X',purchaseDate:'2026-08-31',contribution:10000,purchaseNav:20,units:500},RBF266:{code:'RBF266',name:'B',account:'Y',purchaseDate:'2026-08-31',contribution:5000,purchaseNav:50,units:100}};
+test('fragment round-trip',()=>{const x=decodeBootstrapHash(encodeBootstrapHash(h));assert.equal(x.RBF460.units,500);assert.equal(x.RBF266.contribution,5000)});test('invalid units rejected',()=>assert.throws(()=>normalizeHoldings({RBF460:{...h.RBF460,units:0},RBF266:h.RBF266})));

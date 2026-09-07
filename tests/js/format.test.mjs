@@ -1,0 +1,1 @@
+import test from 'node:test';import assert from 'node:assert/strict';import{formatCurrency,formatPercent,formatNav}from'../../src/js/format.js';test('formats values',()=>{assert.equal(formatCurrency(1234.5),'$1,234.50');assert.equal(formatPercent(.5,true),'+0.50%');assert.equal(formatNav(12.3456),'$12.3456')});
